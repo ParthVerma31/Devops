@@ -1,0 +1,126 @@
+Maven creation:
+ 
+mvn archetype:generate -DgroupId=com.example -DartifactId=Maven-Project -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+ 
+mvn compile,mvn test, mvn package, java -cp target/Maven-Project-1.0-SNAPSHOT.jar com.example.App
+ 
+gradle init, gradle build, gradle run
+ 
+git init, git add ., git commit -m "First", git branch -M main, git remote add origin <github-repo-url>, git push -u origin main
+ 
+Program 6:
+H/5 * * * *
+clean compile test package
+java -cp target/Maven-Project-1.0-SNAPSHOT.jar com.example.App
+ 
+Program 7:
+wsl --install
+Download ubuntu from microsoft store
+on Ubuntu:
+sudo apt update -y
+sudo apt install ansible -y
+mkdir ansible
+cd ansible
+vi inventory.ini:
+[local]
+localhost ansible_connection=local
+To run: ansible all -i inventory.ini install_htop.yml
+ 
+vi install_htop.yml:
+---
+- name: Install htop system monitor tool
+  hosts: local
+  become: true
+ 
+  tasks:
+    - name: Install htop package
+      ansible.builtin.package:
+        name: htop
+        state: present
+To run: ansible-playbook -i inventory.ini install_htop.yml
+ 
+Program 8:
+Make maven project, push to github, do jenkins work done in program 6 then on ubuntu do till inventory.ini from program 7
+vi deploy.yml:
+---
+- name: Deploy JAR
+  hosts: local
+  become: true
+ 
+  tasks:
+    - name: Copy JAR file
+      copy:
+        src: /mnt/c/ProgramData/Jenkins/.jenkins/workspace/Devops/target/Maven-Gradle-1.0-SNAPSHOT.jar
+        dest: /home/verma/ansible/app.jar
+        mode: '0755'
+ 
+    - name: Run JAR file
+      shell: nohup java -jar /home/verma/ansible/app.jar > app.log 2>&1 &
+ 
+in pom.xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <version>3.4.1</version>
+ 
+    <configuration>
+        <archive>
+            <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>com.example.App</mainClass>
+            </manifest>
+        </archive>
+    </configuration>
+</plugin>
+ 
+Program 11:
+Create YAML Pipeline (azure-pipelines.yml):
+trigger:
+- main
+ 
+pool:
+  name: pool1
+ 
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'package'
+ 
+- script: |
+    echo "Simulating deployment..."
+    mkdir deployed
+    copy target\*.jar deployed\
+    echo "Deployment successful!"
+  displayName: 'Simulate Deployment'
+ 
+- script: |
+    echo "Contents of deployed folder:"
+    dir deployed
+  displayName: 'Verify Deployment Output'
+ 
+Program 12:
+Create azure-pipelines.yml
+trigger:
+- main
+ 
+pool:
+  name: MYLOCALPOOL
+ 
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean package'
+ 
+- script: |
+    echo "Simulating deployment..."
+    mkdir deployed
+    copy target\*.jar deployed\
+    echo "Deployment successful!"
+  displayName: 'Simulate Deployment'
+ 
+- script: |
+    echo "Running the JAR file..."
+    java -jar deployed\*.jar
+  displayName: 'Run Application'
