@@ -72,6 +72,10 @@ in pom.xml
         </archive>
     </configuration>
 </plugin>
+
+on windows batch command:
+wsl ansible-playbook -i /home/your-user/ansible-lab/inventory /home/youruser/ansiblelab/
+deploy.yml
  
 Program 11:
 Create YAML Pipeline (azure-pipelines.yml):
