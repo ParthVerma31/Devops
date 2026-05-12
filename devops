@@ -76,6 +76,18 @@ in pom.xml
 on windows batch command:
 wsl ansible-playbook -i /home/your-user/ansible-lab/inventory /home/youruser/ansiblelab/
 deploy.yml
+
+Step 8: Redeploy the Artifact:
+ Push Changes to GitHub:
+git add pom.xml
+git commit -m "Fix manifest error by adding Main-Class"
+git push -u origin main
+Jenkins will automatically trigger the build and deploy the new JAR file, which now includes the
+correct Main-Class
+
+Step 9: Rerun Application:
+ Using this command : cat app.log
+ now the application running without the manifest error.
  
 Program 11:
 Create YAML Pipeline (azure-pipelines.yml):
