@@ -140,6 +140,12 @@ in the playbook.yml:
       debug:
 	var: jar_output.stdout
 
+First lets change the Permission of the Jenkins so it will be able to communicating with WSL.
+Go to Service -> Jenkins -> Properties -> Give System Username and Password
+Restart the Services.
+Now Create a Folder and include Playbook.yml and inventory file. The Playbook. Yml file contains all the details of Java Project we created in Part 1 of the Video.
+Now in Jenkins we will create pipeline to run the WSL file That internally build the Java Project and displays the Outp
+
 Program 11:
 Create YAML Pipeline (azure-pipelines.yml):
 # Starter pipeline
