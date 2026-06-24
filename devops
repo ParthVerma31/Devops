@@ -5,6 +5,16 @@ mvn archetype:generate -DgroupId=com.example -DartifactId=Maven-Project -Darchet
 mvn compile,mvn test, mvn package, java -cp target/Maven-Project-1.0-SNAPSHOT.jar com.example.App
  
 gradle init, gradle build, gradle run
+
+for program4 changes in build file:
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'application'
+}
+application {
+    mainClass= 'com.mvit.App'
+}
  
 git init, git add ., git commit -m "First", git branch -M main, git remote add origin <github-repo-url>, git push -u origin main
  
