@@ -21,12 +21,12 @@ sudo apt update -y
 sudo apt install ansible -y
 mkdir ansible
 cd ansible
-vi inventory.ini:
+vi inventory.ini or nano inventory:
 [local]
 localhost ansible_connection=local
 To run: ansible all -i inventory.ini install_htop.yml
  
-vi install_htop.yml:
+vi install_htop.yml or nano playbook.yml:
 ---
 - name: Install htop system monitor tool
   hosts: local
@@ -37,6 +37,14 @@ vi install_htop.yml:
       ansible.builtin.package:
         name: htop
         state: present
+or: 
+- name: Ansible
+  hosts: local
+  tasks:
+	- name: Print Hi
+	  debug:
+		msg: "Hi Ansible"
+
 To run: ansible-playbook -i inventory.ini install_htop.yml
  
 Program 8:
