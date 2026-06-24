@@ -30,7 +30,6 @@ vi install_htop.yml or nano playbook.yml:
 ---
 - name: Install htop system monitor tool
   hosts: local
-  become: true
  
   tasks:
     - name: Install htop package
@@ -53,7 +52,6 @@ vi deploy.yml:
 ---
 - name: Deploy JAR
   hosts: local
-  become: true
  
   tasks:
     - name: Copy JAR file
