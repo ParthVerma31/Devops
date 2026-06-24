@@ -88,7 +88,58 @@ correct Main-Class
 Step 9: Rerun Application:
  Using this command : cat app.log
  now the application running without the manifest error.
- 
+
+Verify if the Java is installed in Ubuntu
+Java version 17 or above should be installed.
+If not installed use following command to install Java version 17 or above
+sudo apt install openjdk-17-jre-headless
+provide ubuntu username and password if prompted during installation
+
+After Installation -> Restart Ubuntu
+Verify java -version to display the java installation.
+Set Environment Variables path of JAVA in Ubuntu
+nano ~/.bashrc
+Enter the following at the end of the file
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+Save and Exit
+
+Verify using
+echo $JAVA_HOME
+
+in the playbook.yml:
+ - name: Experiment 8 Run Task on Localhost
+   hosts: local
+   connection: local
+   tasks:
+    - name: Print Hello
+      debug:
+        msg: "Hello from Ansible on Windows via WSL!"
+
+    - name: Ensure Maven is available
+      command: mvn-version
+      environment:
+	JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+
+    - name: Run Maven build
+      command: mvn clean install  
+      args:
+	chdir: /mnt/d/jenkinsmaven/myapp
+      environment:
+	JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+
+    - name: Run Maven-built JAR
+      command: java -jar target/myapp-1.0-SNAPSHOT.jar
+      args:
+	chdir: /mnt/d/jenkinsmaven/myapp
+      environment:
+	JAVA_HOME: /usr/lib/jvm/java-17-openjdk-amd64
+      register: jar_output
+
+    - name: Show output from Java JAR
+      debug:
+	var: jar_output.stdout
+
 Program 11:
 Create YAML Pipeline (azure-pipelines.yml):
 # Starter pipeline
