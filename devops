@@ -64,7 +64,9 @@ vi deploy.yml:
  
     - name: Run JAR file
       shell: nohup java -jar /home/verma/ansible/app.jar > app.log 2>&1 &
- 
+
+to run: cat app.log 
+
 in pom.xml
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
