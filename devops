@@ -74,6 +74,7 @@ vi deploy.yml:
       shell: nohup java -jar /home/verma/ansible/app.jar > app.log 2>&1 &
 
 to run: cat app.log 
+Do till here only for program 8, no need to do the wsl command in jekins
 
 in pom.xml
 <plugin>
