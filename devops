@@ -73,6 +73,8 @@ vi deploy.yml:
     - name: Run JAR file
       shell: nohup java -jar /home/verma/ansible/app.jar > app.log 2>&1 &
 
+if directory is not there use this code: mkdir -p /home/verma/ansible4
+
 to run: cat app.log 
 Do till here only for program 8, no need to do the wsl command in jekins
 
